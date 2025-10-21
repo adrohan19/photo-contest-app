@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-header">
+    <h1>{{ contest.results_title }}</h1>
+    <p class="lead">{{ contest.tagline }}</p>
+</section>
+
+<section class="container">
+    <div id="results-message" class="alert info">
+        Tip: Refresh the page during the party to watch the rankings shift in real time.
+    </div>
+    <div id="results-grid" class="results-grid" data-contest="{{ contest.slug }}">
+        {% for category in contest.categories %}
+        <section class="results-block" data-category="{{ category.id }}">
+            <h2>{{ category.label }}</h2>
+            <ol class="results-list" data-results-list="{{ category.id }}">
+                <li class="empty-state">No votes yet. Rally your fans!</li>
+            </ol>
+        </section>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block body_scripts %}
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{% endblock %}

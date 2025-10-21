@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero container">
+    <div class="hero-text">
+        <h1>{{ default_contest.name }}</h1>
+        <p>{{ default_contest.tagline }}</p>
+        <div class="hero-actions">
+            <a class="btn primary" href="{{ url_for('upload_page', contest_slug=default_contest.slug) }}">Submit a Costume</a>
+            <a class="btn secondary" href="{{ url_for('vote_page', contest_slug=default_contest.slug) }}">Cast Costume Votes</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <h2>{{ default_contest.name }} Superlatives</h2>
+        <ul class="category-list">
+            {% for category in default_contest.categories %}
+            <li>
+                <span class="bullet">👻</span>
+                <span class="category-label">{{ category.label }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section class="how-it-works container">
+    <h2>How It Works</h2>
+    <div class="steps">
+        <article class="step-card">
+            <h3>1. Upload</h3>
+            <p>Share your Halloween masterpiece—costume or pumpkin—and pick the superlatives you want to win.</p>
+        </article>
+        <article class="step-card">
+            <h3>2. Hype</h3>
+            <p>Send the voting links to your crew. Bribes optional, smack talk encouraged.</p>
+        </article>
+        <article class="step-card">
+            <h3>3. Vote + Win</h3>
+            <p>Check the live results during happy hour and crown the champs on the spot.</p>
+        </article>
+    </div>
+</section>
+
+<section class="container contest-grid">
+    <h2>Pick Your Halloween Showdown</h2>
+    <div class="contest-cards">
+        {% for contest in contests %}
+        <article class="contest-card">
+            <h3>{{ contest.name }}</h3>
+            <p>{{ contest.tagline }}</p>
+            <div class="card-actions">
+                <a class="btn secondary" href="{{ url_for('upload_page', contest_slug=contest.slug) }}">Upload</a>
+                <a class="btn primary" href="{{ url_for('vote_page', contest_slug=contest.slug) }}">Vote</a>
+                <a class="btn tertiary" href="{{ url_for('results_page', contest_slug=contest.slug) }}">Results</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="cta container">
+    <h2>Ready for the Ultimate Halloween Throwdown?</h2>
+    <p>Serve looks, paint legendary pumpkins, and keep checking back as the votes roll in.</p>
+    <div class="hero-actions">
+        <a class="btn primary" href="{{ url_for('upload_page', contest_slug=default_contest.slug) }}">Enter Costumes</a>
+        {% if pumpkin_contest %}
+        <a class="btn secondary" href="{{ url_for('vote_page', contest_slug=pumpkin_contest.slug) }}">Vote Pumpkins</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

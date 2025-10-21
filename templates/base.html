@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Photo Throwdown</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    {% block head_scripts %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="branding">
+                <span class="emoji">🎃</span>
+                <span class="brand-name">Halloween Photo Throwdown</span>
+            </div>
+            <nav class="site-nav">
+                <a href="{{ url_for('index') }}">Home</a>
+                {% for nav_contest in site_contests %}
+                <a href="{{ url_for('upload_page', contest_slug=nav_contest.slug) }}">{{ nav_contest.nav_label }} Upload</a>
+                <a href="{{ url_for('vote_page', contest_slug=nav_contest.slug) }}">{{ nav_contest.nav_label }} Vote</a>
+                <a href="{{ url_for('results_page', contest_slug=nav_contest.slug) }}">{{ nav_contest.nav_label }} Results</a>
+                {% endfor %}
+            </nav>
+        </div>
+    </header>
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            Built with 💀 by the Halloween committee. Share the voting link and let the screams decide!
+        </div>
+    </footer>
+    {% block body_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-header">
+    <h1>{{ contest.vote_title }}</h1>
+    <p class="lead">{{ contest.tagline }}</p>
+</section>
+
+<section class="container">
+    <div id="vote-message" class="alert" hidden></div>
+    <div class="category-vote-list" data-contest="{{ contest.slug }}">
+        {% for category in contest.categories %}
+        <section class="category-block" data-category="{{ category.id }}">
+            <div class="category-header">
+                <h2>{{ category.label }}</h2>
+                <button class="btn tertiary refresh" type="button" data-refresh="{{ category.id }}">Refresh entries</button>
+            </div>
+            <form class="vote-form" data-category="{{ category.id }}">
+                <div class="photo-grid" data-category-grid="{{ category.id }}">
+                    <p class="empty-state">Loading entries…</p>
+                </div>
+                <div class="form-actions vote-actions">
+                    <button class="btn primary" type="submit">Submit Vote</button>
+                </div>
+            </form>
+        </section>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block body_scripts %}
+<script src="{{ url_for('static', filename='js/vote.js') }}"></script>
+{% endblock %}

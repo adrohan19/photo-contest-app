@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container page-header">
+    <h1>{{ contest.upload_title }}</h1>
+    <p class="lead">{{ contest.tagline }}</p>
+</section>
+
+<section class="container form-section">
+    <form id="upload-form" class="card" enctype="multipart/form-data" data-contest="{{ contest.slug }}">
+        <input type="hidden" name="contest" value="{{ contest.slug }}">
+        <div class="form-grid">
+            <label>
+                <span class="form-label">Your name *</span>
+                <input type="text" name="uploader_name" required placeholder="Morticia Addams">
+            </label>
+            <label>
+                <span class="form-label">Email (optional)</span>
+                <input type="email" name="email" placeholder="morticia@spooky.com">
+            </label>
+        </div>
+
+        <label>
+            <span class="form-label">Photo caption</span>
+            <input type="text" name="caption" placeholder="Nightmare fuel, decked in glitter.">
+        </label>
+
+        <fieldset class="form-categories">
+            <legend>Select superlatives *</legend>
+            <div class="checkbox-grid">
+                {% for category in contest.categories %}
+                <label class="checkbox-card">
+                    <input type="checkbox" name="categories" value="{{ category.id }}">
+                    <span>{{ category.label }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </fieldset>
+
+        <label class="file-input">
+            <span class="form-label">Upload photo *</span>
+            <input type="file" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif" required>
+        </label>
+
+        <div class="form-actions">
+            <button class="btn primary" type="submit">Submit Photo</button>
+            <p class="fine-print">Files up to 5 MB. Accepted formats: PNG, JPG, GIF.</p>
+        </div>
+    </form>
+
+    <div id="upload-message" class="alert" hidden></div>
+</section>
+{% endblock %}
+
+{% block body_scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
