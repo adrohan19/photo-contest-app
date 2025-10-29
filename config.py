@@ -1,9 +1,11 @@
+import os
 from pathlib import Path
 
 # Directory paths
 BASE_DIR = Path(__file__).resolve().parent
-UPLOAD_DIR = BASE_DIR / "uploads"
-DATABASE_PATH = BASE_DIR / "data" / "app.db"
+STORAGE_ROOT = Path(os.environ.get("STORAGE_ROOT", str(BASE_DIR))).resolve()
+UPLOAD_DIR = STORAGE_ROOT / "uploads"
+DATABASE_PATH = STORAGE_ROOT / "data" / "app.db"
 
 # Maximum upload size in bytes (5 MB)
 MAX_CONTENT_LENGTH = 5 * 1024 * 1024
